@@ -87,6 +87,7 @@ class RunActionsDialog(QtWidgets.QDialog):
                 messagebox(
                     self, f"The log contains {action['id']} that is not installed."
                 )
+                return
 
         # update available actions
         self.actions_available = []
@@ -104,6 +105,9 @@ class RunActionsDialog(QtWidgets.QDialog):
         self.ui.groupBoxActions.setEnabled(True)
 
     def on_subject_action_finished(self, action_id, subject_name):
+
+        if subject_name != self.experiment.active_subject.name:
+            return
 
         # Add item to the 'done' box
         _, _, action_spec = self.action_specs[action_id]
@@ -132,6 +136,7 @@ class RunActionsDialog(QtWidgets.QDialog):
         version = action.get("version")
         if version != 1:
             messagebox(self, "The action version is not supported, needed 1.")
+            return
 
         params = action.get("params")
         if params is None:
@@ -149,6 +154,7 @@ class RunActionsDialog(QtWidgets.QDialog):
         entry = action_spec["entry"]
         action_class = getattr(module, entry)
 
+        # instantiate an object but do not call the run
         try:
             action_obj = action_class(
                 self.experiment,
@@ -172,7 +178,7 @@ class RunActionsDialog(QtWidgets.QDialog):
             messagebox(self, "It seems this action cannot be run without a dialog.")
             return
 
-        # call the subject_action
+        # .. and call the subject_action
         subject = self.experiment.active_subject
         getattr(action_obj, method_name)(subject, params)
 
@@ -198,6 +204,7 @@ class RunActionsDialog(QtWidgets.QDialog):
         version = action.get("version")
         if version != 1:
             messagebox(self, "The action version is not supported, needed 1.")
+            return
 
         params = action.get("params")
         if params is None:
@@ -247,11 +254,11 @@ class RunActionsDialog(QtWidgets.QDialog):
 
         if not self.action_log:
             messagebox(self, "The selected action log seems empty.")
+            return
 
-        if self.action_log:
-            self.ui.labelBrowseCurrentSelectionFilename.setText(str(fname))
-            self.ui.groupBoxSubject.setEnabled(True)
-            self.ui.comboBoxSubject.addItems(sorted(self.action_log.keys()))
+        self.ui.labelBrowseCurrentSelectionFilename.setText(str(fname))
+        self.ui.groupBoxSubject.setEnabled(True)
+        self.ui.comboBoxSubject.addItems(sorted(self.action_log.keys()))
 
     def on_pushButtonClose_clicked(self, checked=None):
         if checked is None:
