@@ -1,7 +1,7 @@
 {
     "id": "meggie_reproduction",
     "name": "Reproduction",
-    "description": "Replay actions based on a action log",
+    "description": "Run actions based on an action log of a previous experiment",
     "author": "CIBR",
     "tabs": [
         {

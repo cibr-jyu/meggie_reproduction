@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'runActionsDialogUi.ui'
+# Form implementation generated from reading ui file 'actions/reproduction_run/dialogs/runActionsDialogUi.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -97,65 +97,33 @@ class Ui_RunActionsDialog(object):
         self.groupBoxActions.setObjectName("groupBoxActions")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.groupBoxActions)
         self.gridLayout_2.setObjectName("gridLayout_2")
+        self.textBrowserActionsInfo = QtWidgets.QTextBrowser(self.groupBoxActions)
+        self.textBrowserActionsInfo.setObjectName("textBrowserActionsInfo")
+        self.gridLayout_2.addWidget(self.textBrowserActionsInfo, 1, 1, 5, 1)
         self.labelActionsAvailable = QtWidgets.QLabel(self.groupBoxActions)
         self.labelActionsAvailable.setObjectName("labelActionsAvailable")
         self.gridLayout_2.addWidget(self.labelActionsAvailable, 0, 0, 1, 1)
-        self.textBrowserActionsInfo = QtWidgets.QTextBrowser(self.groupBoxActions)
-        self.textBrowserActionsInfo.setObjectName("textBrowserActionsInfo")
-        self.gridLayout_2.addWidget(self.textBrowserActionsInfo, 1, 1, 4, 1)
-        self.listWidgetAvailable = QtWidgets.QListWidget(self.groupBoxActions)
-        self.listWidgetAvailable.setObjectName("listWidgetAvailable")
-        item = QtWidgets.QListWidgetItem()
-        self.listWidgetAvailable.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidgetAvailable.addItem(item)
-        self.gridLayout_2.addWidget(self.listWidgetAvailable, 1, 0, 1, 1)
-        self.pushButtonActionsRun = QtWidgets.QPushButton(self.groupBoxActions)
-        self.pushButtonActionsRun.setObjectName("pushButtonActionsRun")
-        self.gridLayout_2.addWidget(self.pushButtonActionsRun, 2, 0, 1, 1)
-        self.listWidgetDone = QtWidgets.QListWidget(self.groupBoxActions)
-        self.listWidgetDone.setObjectName("listWidgetDone")
-        item = QtWidgets.QListWidgetItem()
-        self.listWidgetDone.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidgetDone.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidgetDone.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidgetDone.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidgetDone.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidgetDone.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidgetDone.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidgetDone.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidgetDone.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidgetDone.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidgetDone.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidgetDone.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidgetDone.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidgetDone.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidgetDone.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidgetDone.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidgetDone.addItem(item)
-        self.gridLayout_2.addWidget(self.listWidgetDone, 4, 0, 1, 1)
         self.labelActionsDone = QtWidgets.QLabel(self.groupBoxActions)
         self.labelActionsDone.setObjectName("labelActionsDone")
-        self.gridLayout_2.addWidget(self.labelActionsDone, 3, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.labelActionsDone, 4, 0, 1, 1)
+        self.listWidgetAvailable = QtWidgets.QListWidget(self.groupBoxActions)
+        self.listWidgetAvailable.setObjectName("listWidgetAvailable")
+        self.gridLayout_2.addWidget(self.listWidgetAvailable, 1, 0, 1, 1)
         self.labelActionsInfo = QtWidgets.QLabel(self.groupBoxActions)
         self.labelActionsInfo.setObjectName("labelActionsInfo")
         self.gridLayout_2.addWidget(self.labelActionsInfo, 0, 1, 1, 1)
+        self.listWidgetDone = QtWidgets.QListWidget(self.groupBoxActions)
+        self.listWidgetDone.setObjectName("listWidgetDone")
+        self.gridLayout_2.addWidget(self.listWidgetDone, 5, 0, 1, 1)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.pushButtonActionsRun = QtWidgets.QPushButton(self.groupBoxActions)
+        self.pushButtonActionsRun.setObjectName("pushButtonActionsRun")
+        self.horizontalLayout.addWidget(self.pushButtonActionsRun)
+        self.pushButtonActionsRunDialog = QtWidgets.QPushButton(self.groupBoxActions)
+        self.pushButtonActionsRunDialog.setObjectName("pushButtonActionsRunDialog")
+        self.horizontalLayout.addWidget(self.pushButtonActionsRunDialog)
+        self.gridLayout_2.addLayout(self.horizontalLayout, 2, 0, 1, 1)
         self.gridLayout_7.addWidget(self.groupBoxActions, 2, 0, 1, 1)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.gridLayout.addWidget(self.scrollArea, 0, 0, 1, 1)
@@ -180,9 +148,6 @@ class Ui_RunActionsDialog(object):
         self.groupBoxSubject.setTitle(_translate("RunActionsDialog", "Subject"))
         self.labelSubject.setText(_translate("RunActionsDialog", "Based on subject:"))
         self.groupBoxActions.setTitle(_translate("RunActionsDialog", "Actions"))
-        self.labelActionsAvailable.setText(
-            _translate("RunActionsDialog", "Available actions:")
-        )
         self.textBrowserActionsInfo.setHtml(
             _translate(
                 "RunActionsDialog",
@@ -190,85 +155,15 @@ class Ui_RunActionsDialog(object):
                 '<html><head><meta name="qrichtext" content="1" /><style type="text/css">\n'
                 "p, li { white-space: pre-wrap; }\n"
                 "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">{</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;cat&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;dog,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;elephant&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;raw&quot;</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;meow&quot;</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;tsuk&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;tsok&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;tsek&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;tsik&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;tsuk&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;&quot;,</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  &quot;&quot;</p>\n'
-                '<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">}</p></body></html>',
+                '<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></body></html>',
             )
         )
-        __sortingEnabled = self.listWidgetAvailable.isSortingEnabled()
-        self.listWidgetAvailable.setSortingEnabled(False)
-        item = self.listWidgetAvailable.item(0)
-        item.setText(_translate("RunActionsDialog", "Another cat"))
-        item = self.listWidgetAvailable.item(1)
-        item.setText(_translate("RunActionsDialog", "Another mindless human"))
-        self.listWidgetAvailable.setSortingEnabled(__sortingEnabled)
-        self.pushButtonActionsRun.setText(
-            _translate("RunActionsDialog", "Run selected action")
+        self.labelActionsAvailable.setText(
+            _translate("RunActionsDialog", "Available actions:")
         )
-        __sortingEnabled = self.listWidgetDone.isSortingEnabled()
-        self.listWidgetDone.setSortingEnabled(False)
-        item = self.listWidgetDone.item(0)
-        item.setText(_translate("RunActionsDialog", "Cat"))
-        item = self.listWidgetDone.item(1)
-        item.setText(_translate("RunActionsDialog", "Bird"))
-        item = self.listWidgetDone.item(2)
-        item.setText(_translate("RunActionsDialog", "Fly"))
-        item = self.listWidgetDone.item(3)
-        item.setText(_translate("RunActionsDialog", "Frog"))
-        item = self.listWidgetDone.item(4)
-        item.setText(_translate("RunActionsDialog", "Lion"))
-        item = self.listWidgetDone.item(5)
-        item.setText(_translate("RunActionsDialog", "Hippo"))
-        item = self.listWidgetDone.item(6)
-        item.setText(_translate("RunActionsDialog", "Another cat"))
-        item = self.listWidgetDone.item(7)
-        item.setText(_translate("RunActionsDialog", "Eagle"))
-        item = self.listWidgetDone.item(8)
-        item.setText(_translate("RunActionsDialog", "Giraffe"))
-        item = self.listWidgetDone.item(9)
-        item.setText(_translate("RunActionsDialog", "Bird"))
-        item = self.listWidgetDone.item(10)
-        item.setText(_translate("RunActionsDialog", "Crocodile"))
-        item = self.listWidgetDone.item(11)
-        item.setText(_translate("RunActionsDialog", "Zen master"))
-        item = self.listWidgetDone.item(12)
-        item.setText(_translate("RunActionsDialog", "Dog"))
-        item = self.listWidgetDone.item(13)
-        item.setText(_translate("RunActionsDialog", "Fox"))
-        item = self.listWidgetDone.item(14)
-        item.setText(_translate("RunActionsDialog", "Wolf"))
-        item = self.listWidgetDone.item(15)
-        item.setText(_translate("RunActionsDialog", "Raven"))
-        item = self.listWidgetDone.item(16)
-        item.setText(_translate("RunActionsDialog", "Ninetales"))
-        self.listWidgetDone.setSortingEnabled(__sortingEnabled)
         self.labelActionsDone.setText(_translate("RunActionsDialog", "Done:"))
         self.labelActionsInfo.setText(_translate("RunActionsDialog", "Info:"))
+        self.pushButtonActionsRun.setText(_translate("RunActionsDialog", "Run"))
+        self.pushButtonActionsRunDialog.setText(
+            _translate("RunActionsDialog", "Run with dialog...")
+        )

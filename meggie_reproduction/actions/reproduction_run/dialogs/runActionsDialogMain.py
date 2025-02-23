@@ -1,6 +1,7 @@
 """Contains a class for logic of the run actions dialog."""
 
 import json
+import importlib
 
 from PyQt5 import QtWidgets
 
@@ -44,6 +45,27 @@ class RunActionsDialog(QtWidgets.QDialog):
         # Add handler for subject change
         self.ui.comboBoxSubject.currentTextChanged.connect(self.on_subject_changed)
 
+        # Add handler for action selection
+        self.ui.listWidgetAvailable.currentItemChanged.connect(
+            self.on_action_item_changed
+        )
+
+    def on_action_item_changed(self, value):
+        action_idx = self.ui.listWidgetAvailable.indexFromItem(value).row()
+        action_id = self.actions_available[action_idx]
+        action = next(
+            (
+                act
+                for act in self.action_log[self.current_subject]
+                if act["id"] == action_id
+            ),
+            None,
+        )
+        if not action:
+            return
+
+        self.ui.textBrowserActionsInfo.setPlainText(json.dumps(action, indent=2))
+
     def on_subject_changed(self, value):
         if not value:
             return
@@ -57,7 +79,7 @@ class RunActionsDialog(QtWidgets.QDialog):
         self.current_subject = value
 
         # get installed actions
-        installed_actions = [spec[1] for spec in self.action_specs.values()]
+        installed_actions = [spec[2]["id"] for spec in self.action_specs.values()]
 
         # ensure all actions are available in the installation
         for action in self.action_log[value]:
@@ -80,6 +102,132 @@ class RunActionsDialog(QtWidgets.QDialog):
                 )
 
         self.ui.groupBoxActions.setEnabled(True)
+
+    def on_subject_action_finished(self, action_id, subject_name):
+
+        # Add item to the 'done' box
+        _, _, action_spec = self.action_specs[action_id]
+        self.actions_done.append(action_id)
+        self.ui.listWidgetDone.addItem(f"{action_spec['name']}")
+
+    def on_pushButtonActionsRun_clicked(self, checked=None):
+        if checked is None:
+            return
+
+        selected_item = self.ui.listWidgetAvailable.currentItem()
+
+        action_idx = self.ui.listWidgetAvailable.indexFromItem(selected_item).row()
+        action_id = self.actions_available[action_idx]
+        action = next(
+            (
+                act
+                for act in self.action_log[self.current_subject]
+                if act["id"] == action_id
+            ),
+            None,
+        )
+        if not action:
+            return
+
+        version = action.get("version")
+        if version != 1:
+            messagebox(self, "The action version is not supported, needed 1.")
+
+        params = action.get("params")
+        if params is None:
+            messagebox(self, "Action params were not found.")
+            return
+
+        data = action.get("data")
+        if data is None:
+            messagebox(self, "Action data was not found.")
+            return
+
+        # find the corresponding callable
+        source, package, action_spec = self.action_specs[action["id"]]
+        module = importlib.import_module(".".join([source, "actions", package]))
+        entry = action_spec["entry"]
+        action_class = getattr(module, entry)
+
+        try:
+            action_obj = action_class(
+                self.experiment,
+                data,
+                self.parent,
+                action_spec,
+                subject_action_callback=self.on_subject_action_finished,
+            )
+        except Exception as exc:
+            exc_messagebox(self, exc)
+            return
+
+        # try to find out the subject_action function
+        method_name = None
+        for attr_name in dir(action_obj):
+            attr = getattr(action_obj, attr_name)
+            if callable(attr) and hasattr(attr, "_is_subject_action"):
+                method_name = attr_name
+                break
+        else:
+            messagebox(self, "It seems this action cannot be run without a dialog.")
+            return
+
+        # call the subject_action
+        subject = self.experiment.active_subject
+        getattr(action_obj, method_name)(subject, params)
+
+    def on_pushButtonActionsRunDialog_clicked(self, checked=None):
+        if checked is None:
+            return
+
+        selected_item = self.ui.listWidgetAvailable.currentItem()
+
+        action_idx = self.ui.listWidgetAvailable.indexFromItem(selected_item).row()
+        action_id = self.actions_available[action_idx]
+        action = next(
+            (
+                act
+                for act in self.action_log[self.current_subject]
+                if act["id"] == action_id
+            ),
+            None,
+        )
+        if not action:
+            return
+
+        version = action.get("version")
+        if version != 1:
+            messagebox(self, "The action version is not supported, needed 1.")
+
+        params = action.get("params")
+        if params is None:
+            messagebox(self, "Action params were not found.")
+            return
+
+        data = action.get("data")
+        if data is None:
+            messagebox(self, "Action data was not found.")
+            return
+
+        # find the corresponding callable
+        source, package, action_spec = self.action_specs[action["id"]]
+        module = importlib.import_module(".".join([source, "actions", package]))
+        entry = action_spec["entry"]
+        action_class = getattr(module, entry)
+
+        # Open the widget with default params (if supported)
+        try:
+            action_obj = action_class(
+                self.experiment,
+                data,
+                self.parent,
+                action_spec,
+                subject_action_callback=self.on_subject_action_finished,
+            )
+            action_obj.run(params)
+        except Exception as exc:
+            exc_messagebox(self, exc)
+            return
 
     def on_pushButtonSourceBrowse_clicked(self, checked=None):
         if checked is None:

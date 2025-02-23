@@ -8,6 +8,6 @@ from meggie_reproduction.actions.reproduction_run.dialogs.runActionsDialogMain i
 class ReproductionRun(Action):
     """Applies action logs to subjects."""
 
-    def run(self):
+    def run(self, params={}):
         run_actions_dialog = RunActionsDialog(self.window, self.experiment)
         run_actions_dialog.show()
