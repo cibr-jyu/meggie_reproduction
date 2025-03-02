@@ -49,3 +49,6 @@ class TestReproductionRunTest(BaseTestAction):
             print(f"Running action: {action_id}")
             dialog.ui.listWidgetAvailable.setCurrentRow(idx)
             dialog.on_pushButtonActionsRun_clicked(True)
+
+        # this action log creates an evoked object, ensure its there
+        assert len(self.experiment.active_subject.evoked) > 0
