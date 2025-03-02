@@ -1,6 +1,6 @@
 # meggie\_reproduction
 
-meggie\_reproduction is a Meggie addon that take an action log and replays the actions on new subjects.
+meggie\_reproduction is a Meggie addon that takes an action log and replays the actions on new subjects.
 
 ## Installation
 

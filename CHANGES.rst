@@ -1,19 +1,13 @@
 Changelog
 =========
 
-0.2.2 (unreleased)
+0.1.1 (unreleased)
 -----------------
 
 - nothing changed yet
 
-
-0.2.1 (2024-03-15)
+0.1.0 (2025-03-02)
 -----------------
 
-- Update configurations to include descriptions
-
-0.2.0 (2021-08-20)
------------------
-
-- Fix dependency to Meggie>=1.3.0
+- Initial release
 

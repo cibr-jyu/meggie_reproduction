@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'actions/reproduction_run/dialogs/runActionsDialogUi.ui'
+# Form implementation generated from reading ui file 'runActionsDialogUi.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -62,20 +62,23 @@ class Ui_RunActionsDialog(object):
         self.formLayout_2.setWidget(
             0, QtWidgets.QFormLayout.FieldRole, self.pushButtonSourceBrowse
         )
-        self.labelBrowseCurrentSelectionLabel = QtWidgets.QLabel(self.groupBoxSource)
-        self.labelBrowseCurrentSelectionLabel.setObjectName(
-            "labelBrowseCurrentSelectionLabel"
+        self.labelSourceCurrentSelection = QtWidgets.QLabel(self.groupBoxSource)
+        self.labelSourceCurrentSelection.setObjectName("labelSourceCurrentSelection")
+        self.formLayout_2.setWidget(
+            2, QtWidgets.QFormLayout.LabelRole, self.labelSourceCurrentSelection
+        )
+        self.lineEditSourceCurrentSelection = QtWidgets.QLineEdit(self.groupBoxSource)
+        self.lineEditSourceCurrentSelection.setStyleSheet(
+            'background-color:"transparent"'
+        )
+        self.lineEditSourceCurrentSelection.setText("")
+        self.lineEditSourceCurrentSelection.setFrame(False)
+        self.lineEditSourceCurrentSelection.setReadOnly(True)
+        self.lineEditSourceCurrentSelection.setObjectName(
+            "lineEditSourceCurrentSelection"
         )
         self.formLayout_2.setWidget(
-            1, QtWidgets.QFormLayout.LabelRole, self.labelBrowseCurrentSelectionLabel
-        )
-        self.labelBrowseCurrentSelectionFilename = QtWidgets.QLabel(self.groupBoxSource)
-        self.labelBrowseCurrentSelectionFilename.setText("")
-        self.labelBrowseCurrentSelectionFilename.setObjectName(
-            "labelBrowseCurrentSelectionFilename"
-        )
-        self.formLayout_2.setWidget(
-            1, QtWidgets.QFormLayout.FieldRole, self.labelBrowseCurrentSelectionFilename
+            2, QtWidgets.QFormLayout.FieldRole, self.lineEditSourceCurrentSelection
         )
         self.gridLayout_7.addWidget(self.groupBoxSource, 0, 0, 1, 1)
         self.groupBoxSubject = QtWidgets.QGroupBox(self.scrollAreaWidgetContents)
@@ -142,7 +145,7 @@ class Ui_RunActionsDialog(object):
             _translate("RunActionsDialog", "Select the action log:")
         )
         self.pushButtonSourceBrowse.setText(_translate("RunActionsDialog", "Browse..."))
-        self.labelBrowseCurrentSelectionLabel.setText(
+        self.labelSourceCurrentSelection.setText(
             _translate("RunActionsDialog", "Current selection:")
         )
         self.groupBoxSubject.setTitle(_translate("RunActionsDialog", "Subject"))

@@ -122,17 +122,26 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="labelBrowseCurrentSelectionLabel">
+          <item row="2" column="0">
+           <widget class="QLabel" name="labelSourceCurrentSelection">
             <property name="text">
              <string>Current selection:</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QLabel" name="labelBrowseCurrentSelectionFilename">
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="lineEditSourceCurrentSelection">
+            <property name="styleSheet">
+             <string notr="true">background-color:&quot;transparent&quot;</string>
+            </property>
             <property name="text">
              <string/>
+            </property>
+            <property name="frame">
+             <bool>false</bool>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
             </property>
            </widget>
           </item>

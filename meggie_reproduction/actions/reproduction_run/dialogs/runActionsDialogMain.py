@@ -34,13 +34,18 @@ class RunActionsDialog(QtWidgets.QDialog):
         self.actions_available = []
         self.actions_done = []
 
-        self.ui.labelBrowseCurrentSelectionFilename.setText("")
+        self.ui.lineEditSourceCurrentSelection.setText("")
         self.ui.groupBoxSubject.setEnabled(False)
         self.ui.comboBoxSubject.clear()
         self.ui.listWidgetAvailable.clear()
         self.ui.listWidgetDone.clear()
         self.ui.textBrowserActionsInfo.setPlainText("")
         self.ui.groupBoxActions.setEnabled(False)
+
+        # Add handler for action log change
+        self.ui.lineEditSourceCurrentSelection.textChanged.connect(
+            self.on_action_log_changed
+        )
 
         # Add handler for subject change
         self.ui.comboBoxSubject.currentTextChanged.connect(self.on_subject_changed)
@@ -50,21 +55,22 @@ class RunActionsDialog(QtWidgets.QDialog):
             self.on_action_item_changed
         )
 
-    def on_action_item_changed(self, value):
-        action_idx = self.ui.listWidgetAvailable.indexFromItem(value).row()
-        action_id = self.actions_available[action_idx]
-        action = next(
-            (
-                act
-                for act in self.action_log[self.current_subject]
-                if act["id"] == action_id
-            ),
-            None,
-        )
-        if not action:
+    def on_action_log_changed(self, value):
+        if not value:
             return
 
-        self.ui.textBrowserActionsInfo.setPlainText(json.dumps(action, indent=2))
+        try:
+            with open(value) as f:
+                self.action_log = json.load(f)
+        except Exception as exc:
+            exc_messagebox(self, exc)
+
+        if not self.action_log:
+            messagebox(self, "The selected action log seems empty.")
+            return
+
+        self.ui.groupBoxSubject.setEnabled(True)
+        self.ui.comboBoxSubject.addItems(sorted(self.action_log.keys()))
 
     def on_subject_changed(self, value):
         if not value:
@@ -103,6 +109,22 @@ class RunActionsDialog(QtWidgets.QDialog):
                 )
 
         self.ui.groupBoxActions.setEnabled(True)
+
+    def on_action_item_changed(self, value):
+        action_idx = self.ui.listWidgetAvailable.indexFromItem(value).row()
+        action_id = self.actions_available[action_idx]
+        action = next(
+            (
+                act
+                for act in self.action_log[self.current_subject]
+                if act["id"] == action_id
+            ),
+            None,
+        )
+        if not action:
+            return
+
+        self.ui.textBrowserActionsInfo.setPlainText(json.dumps(action, indent=2))
 
     def on_subject_action_finished(self, action_id, subject_name):
 
@@ -246,19 +268,7 @@ class RunActionsDialog(QtWidgets.QDialog):
         if not fname:
             return
 
-        try:
-            with open(fname) as f:
-                self.action_log = json.load(f)
-        except Exception as exc:
-            exc_messagebox(self, exc)
-
-        if not self.action_log:
-            messagebox(self, "The selected action log seems empty.")
-            return
-
-        self.ui.labelBrowseCurrentSelectionFilename.setText(str(fname))
-        self.ui.groupBoxSubject.setEnabled(True)
-        self.ui.comboBoxSubject.addItems(sorted(self.action_log.keys()))
+        self.ui.lineEditSourceCurrentSelection.setText(str(fname))
 
     def on_pushButtonClose_clicked(self, checked=None):
         if checked is None:
