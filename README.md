@@ -4,8 +4,8 @@ meggie\_reproduction is a Meggie addon that takes an action log and replays the 
 
 ## Installation
 
-1. Activate the meggie environment
-1. Then install: python -m pip install meggie\_reproduction
+1. Activate the existing meggie environment
+2. Then install: python -m pip install meggie\_reproduction
 
 ## Usage
 
