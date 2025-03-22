@@ -14,6 +14,7 @@ from meggie.mainwindow.dynamic import find_all_action_specs
 from meggie.utilities.messaging import exc_messagebox
 from meggie.utilities.messaging import messagebox
 from meggie.utilities.filemanager import homepath
+from meggie.utilities.serialization import deserialize_dict
 
 
 class RunActionsDialog(QtWidgets.QDialog):
@@ -112,18 +113,7 @@ class RunActionsDialog(QtWidgets.QDialog):
 
     def on_action_item_changed(self, value):
         action_idx = self.ui.listWidgetAvailable.indexFromItem(value).row()
-        action_id = self.actions_available[action_idx]
-        action = next(
-            (
-                act
-                for act in self.action_log[self.current_subject]
-                if act["id"] == action_id
-            ),
-            None,
-        )
-        if not action:
-            return
-
+        action = self.action_log[self.current_subject][action_idx]
         self.ui.textBrowserActionsInfo.setPlainText(json.dumps(action, indent=2))
 
     def on_subject_action_finished(self, action_id, subject_name):
@@ -143,17 +133,7 @@ class RunActionsDialog(QtWidgets.QDialog):
         selected_item = self.ui.listWidgetAvailable.currentItem()
 
         action_idx = self.ui.listWidgetAvailable.indexFromItem(selected_item).row()
-        action_id = self.actions_available[action_idx]
-        action = next(
-            (
-                act
-                for act in self.action_log[self.current_subject]
-                if act["id"] == action_id
-            ),
-            None,
-        )
-        if not action:
-            return
+        action = self.action_log[self.current_subject][action_idx]
 
         version = action.get("version")
         if version != 1:
@@ -164,6 +144,9 @@ class RunActionsDialog(QtWidgets.QDialog):
         if params is None:
             messagebox(self, "Action params were not found.")
             return
+
+        # get correctly typed params
+        params = deserialize_dict(params)
 
         data = action.get("data")
         if data is None:
@@ -202,7 +185,10 @@ class RunActionsDialog(QtWidgets.QDialog):
 
         # .. and call the subject_action
         subject = self.experiment.active_subject
-        getattr(action_obj, method_name)(subject, params)
+        try:
+            getattr(action_obj, method_name)(subject, params)
+        except Exception as exc:
+            exc_messagebox(self, exc)
 
     def on_pushButtonActionsRunDialog_clicked(self, checked=None):
         if checked is None:
@@ -211,17 +197,7 @@ class RunActionsDialog(QtWidgets.QDialog):
         selected_item = self.ui.listWidgetAvailable.currentItem()
 
         action_idx = self.ui.listWidgetAvailable.indexFromItem(selected_item).row()
-        action_id = self.actions_available[action_idx]
-        action = next(
-            (
-                act
-                for act in self.action_log[self.current_subject]
-                if act["id"] == action_id
-            ),
-            None,
-        )
-        if not action:
-            return
+        action = self.action_log[self.current_subject][action_idx]
 
         version = action.get("version")
         if version != 1:
@@ -232,6 +208,9 @@ class RunActionsDialog(QtWidgets.QDialog):
         if params is None:
             messagebox(self, "Action params were not found.")
             return
+
+        # get correctly typed params
+        params = deserialize_dict(params)
 
         data = action.get("data")
         if data is None:
